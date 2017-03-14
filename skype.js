@@ -78,9 +78,9 @@ and even send a caller a chat message.
 
 var restify = require('restify');
 
-var builder = require('../../core/');
+var builder = require('botbuilder');
 
-var calling = require('../../calling/');
+//var calling = require('/calling/');
 
 var prompts = require('./prompts');
 
@@ -124,7 +124,7 @@ server.post('/api/messages', chatConnector.listen());
 
 // Create calling bot
 
-var connector = new calling.CallConnector({
+var connector = new builder.ChatConnector({
 
     callbackUrl: process.env.CALLBACK_URL,
 
@@ -134,7 +134,7 @@ var connector = new calling.CallConnector({
 
 });
 
-var bot = new calling.UniversalCallBot(connector);
+var bot = new builder.UniversalBot(connector);
 
 server.post('/api/calls', connector.listen());
 
@@ -208,13 +208,13 @@ bot.dialog('/demoMenu', [
 
         var list = [];
 
-        list.push(calling.Prompt.text(session, prompts.demoMenu.prompt));
+        list.push(chatBot.Prompts.text(session, prompts.demoMenu.prompt));
 
         if (!args || args.full) {
 
-            list.push(calling.Prompt.text(session, prompts.demoMenu.choices));
+            list.push(chatBot.Prompts.text(session, prompts.demoMenu.choices));
 
-            list.push(calling.Prompt.text(session, prompts.demoMenu.help));
+            list.push(chatBot.Prompts.text(session, prompts.demoMenu.help));
 
         }
 
@@ -222,7 +222,7 @@ bot.dialog('/demoMenu', [
 
         // Prompt user to select a menu option
 
-        calling.Prompts.choice(session, new calling.PlayPromptAction(session).prompts(list), [
+        chatBot.Prompts.choice(session, new calling.PlayPromptAction(session).prompts(list), [
 
             { name: 'dtmf', speechVariation: ['dtmf'] },
 
@@ -306,7 +306,7 @@ bot.dialog('/dtmf', [
 
         session.send(prompts.dtmf.intro);
 
-        calling.Prompts.choice(session, prompts.dtmf.prompt, [
+        chatBot.Prompts.choice(session, prompts.dtmf.prompt, [
 
             { name: 'option A', dtmfVariation: '1' },
 
@@ -346,7 +346,7 @@ bot.dialog('/digits', [
 
         }
 
-        calling.Prompts.digits(session, prompts.digits.prompt, 10, { stopTones: '#' });
+        chatBot.Prompts.digits(session, prompts.digits.prompt, 10, { stopTones: '#' });
 
     },
 
@@ -410,7 +410,7 @@ bot.dialog('/record', [
 
         session.send(prompts.record.intro);
 
-        calling.Prompts.record(session, prompts.record.prompt, { playBeep: true });
+        chatBot.Prompts.record(session, prompts.record.prompt, { playBeep: true });
 
     },
 
@@ -442,7 +442,7 @@ bot.dialog('/chat', [
 
         session.send(prompts.chat.intro);
 
-        calling.Prompts.confirm(session, prompts.chat.confirm);        
+        chatBot.Prompts.confirm(session, prompts.chat.confirm);        
 
     },
 
