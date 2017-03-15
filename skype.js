@@ -110,9 +110,9 @@ server.listen(process.env.port || process.env.PORT || 3978, function () {
 
 var chatConnector = new builder.ChatConnector({
 
-    appId: process.env.MICROSOFT_APP_ID,
+    appId: 'f3477893-ca25-4e3e-b492-ba53bfbf3916',
 
-    appPassword: process.env.MICROSOFT_APP_PASSWORD
+    appPassword: 'xmpuRrYjLnvYdfGPXFF2DNk'
 
 });
 
@@ -128,9 +128,9 @@ var connector = new builder.ChatConnector({
 
     callbackUrl: process.env.CALLBACK_URL,
 
-    appId: process.env.MICROSOFT_APP_ID,
+    appId: 'xmpuRrYjLnvYdfGPXFF2DNk',
 
-    appPassword: process.env.MICROSOFT_APP_PASSWORD
+    appPassword: 'xmpuRrYjLnvYdfGPXFF2DNk'
 
 });
 
